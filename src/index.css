@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom animations for the About page */
+@keyframes slideUpFade {
+	0% {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.about-enter {
+	animation: slideUpFade 600ms cubic-bezier(.22,.9,.39,1) both;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+	.about-enter {
+		animation: none;
+	}
+}
+
+/* Animated gradient background (pleasant, subtle) */
+@keyframes animatedGradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.bg-animated {
+	background: linear-gradient(90deg, #e6fff5 0%, #e2f7ff 33%, #fff8d6 66%, #f6fff1 100%);
+	background-size: 300% 300%;
+	animation: animatedGradient 10s ease infinite;
+}
+
+.list-item-hover {
+	transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.list-item-hover:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 6px 18px rgba(16,24,40,0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.bg-animated,
+	.list-item-hover {
+		animation: none !important;
+		transition: none !important;
+		transform: none !important;
+	}
+}
+
+/* Service card animations and layout helpers */
+@keyframes floatY {
+	0% { transform: translateY(0); }
+	50% { transform: translateY(-6px); }
+	100% { transform: translateY(0); }
+}
+
+.service-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1rem;
+}
+
+@media (min-width: 768px) {
+	.service-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+.service-card {
+	background: rgba(255,255,255,0.7);
+	backdrop-filter: blur(6px);
+	border-radius: 0.75rem;
+	padding: 0.75rem;
+	display: flex;
+	gap: 0.75rem;
+	align-items: flex-start;
+	box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+	transform: translateZ(0);
+	transition: transform 220ms cubic-bezier(.2,.9,.3,1), box-shadow 220ms ease;
+}
+.service-card:hover {
+	transform: translateY(-8px) scale(1.01);
+	box-shadow: 0 14px 34px rgba(16,24,40,0.12);
+}
+
+.service-icon {
+	min-width: 44px;
+	min-height: 44px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 9999px;
+	background: linear-gradient(180deg, rgba(16,185,129,0.12), rgba(16,185,129,0.06));
+	color: #059669;
+	flex-shrink: 0;
+}
+
+.service-card-anim {
+	animation: floatY 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.service-card-anim {
+		animation: none !important;
+	}
+}
+
+/* small press animation for upload button */
+@keyframes btnPop {
+	0% { transform: scale(1); }
+	50% { transform: scale(0.96); }
+	100% { transform: scale(1); }
+}
+.upload-btn-press {
+	animation: btnPop 240ms ease-in-out both;
+}
